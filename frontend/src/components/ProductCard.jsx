@@ -1,12 +1,31 @@
 import React from 'react';
-import { Truck, Star, Tag, Package } from 'lucide-react';
+import { Truck, Star, Tag, Package, MessageCircle } from 'lucide-react';
 import { Button } from './ui/button';
 import { Badge } from './ui/badge';
 import { Card, CardContent, CardFooter, CardHeader } from './ui/card';
+import { WHATSAPP_NUMBER } from '../data/mock';
 
 const ProductCard = ({ product, onAddToCart }) => {
   const savings = product.originalPrice - product.price;
   const discountPercentage = Math.round((savings / product.originalPrice) * 100);
+
+  const handleWhatsAppOrder = () => {
+    // Criar mensagem do produto
+    let message = `🛒 *INTERESSE EM CIMENTO ITAU*\n\n`;
+    message += `📦 *Produto:* ${product.name}\n`;
+    message += `💰 *Preço:* R$ ${product.price.toFixed(2)}\n`;
+    message += `🔥 *Desconto:* ${discountPercentage}% OFF\n`;
+    message += `📦 *Quantidade:* ${product.quantity} ${product.unit}\n`;
+    message += `🚚 *Frete:* GRÁTIS\n\n`;
+    message += `Tenho interesse neste produto! Pode me ajudar? 😊`;
+
+    // Codificar mensagem para URL
+    const encodedMessage = encodeURIComponent(message);
+    
+    // Abrir WhatsApp
+    const whatsappUrl = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodedMessage}`;
+    window.open(whatsappUrl, '_blank');
+  };
 
   return (
     <Card className={`relative overflow-hidden hover:shadow-xl transition-all duration-300 hover:scale-105 ${product.popular ? 'ring-2 ring-slate-900' : ''}`}>
@@ -53,15 +72,15 @@ const ProductCard = ({ product, onAddToCart }) => {
         <div className="space-y-2">
           <div className="flex items-center space-x-2">
             <span className="text-3xl font-bold text-gray-900">
-              R$ {product.price}
+              R$ {product.price.toFixed(2)}
             </span>
             <span className="text-lg text-gray-400 line-through">
-              R$ {product.originalPrice}
+              R$ {product.originalPrice.toFixed(2)}
             </span>
           </div>
           <div className="flex items-center space-x-1 text-green-600 text-sm font-medium">
             <Tag className="w-4 h-4" />
-            <span>Economia de R$ {savings}</span>
+            <span>Economia de R$ {savings.toFixed(2)}</span>
           </div>
         </div>
 
@@ -91,12 +110,21 @@ const ProductCard = ({ product, onAddToCart }) => {
         </div>
       </CardContent>
 
-      <CardFooter className="p-6 pt-0">
+      <CardFooter className="p-6 pt-0 space-y-2">
         <Button 
           onClick={() => onAddToCart(product)}
           className="w-full bg-slate-900 hover:bg-slate-800 text-white py-3 text-lg font-semibold rounded-xl transition-all duration-200 hover:shadow-lg"
         >
           Adicionar ao Carrinho
+        </Button>
+        
+        <Button 
+          onClick={handleWhatsAppOrder}
+          variant="outline"
+          className="w-full border-green-600 text-green-600 hover:bg-green-50 py-3 text-lg font-semibold rounded-xl transition-all duration-200"
+        >
+          <MessageCircle className="w-5 h-5 mr-2" />
+          Comprar via WhatsApp
         </Button>
       </CardFooter>
     </Card>

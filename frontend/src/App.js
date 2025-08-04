@@ -7,7 +7,6 @@ import Header from "./components/Header";
 import HeroSection from "./components/HeroSection";
 import ProductCard from "./components/ProductCard";
 import Cart from "./components/Cart";
-import CheckoutForm from "./components/CheckoutForm";
 import TestimonialsSection from "./components/TestimonialsSection";
 import Footer from "./components/Footer";
 
@@ -17,7 +16,6 @@ import { mockProducts, mockStock, mockTestimonials } from "./data/mock";
 function App() {
   const [cartItems, setCartItems] = useState([]);
   const [isCartOpen, setIsCartOpen] = useState(false);
-  const [showCheckout, setShowCheckout] = useState(false);
   const [stock, setStock] = useState(mockStock);
   const productsRef = useRef(null);
 
@@ -60,51 +58,6 @@ function App() {
   const removeFromCart = (productId) => {
     setCartItems(prev => prev.filter(item => item.id !== productId));
   };
-
-  // Ir para checkout
-  const goToCheckout = () => {
-    setIsCartOpen(false);
-    setShowCheckout(true);
-  };
-
-  // Voltar do checkout
-  const backFromCheckout = () => {
-    setShowCheckout(false);
-    setIsCartOpen(true);
-  };
-
-  // Completar pedido
-  const completeOrder = (order) => {
-    // Atualizar estoque
-    const totalItemsOrdered = cartItems.reduce((sum, item) => sum + item.quantity, 0);
-    setStock(prev => ({
-      ...prev,
-      sold: prev.sold + totalItemsOrdered,
-      remaining: prev.remaining - totalItemsOrdered
-    }));
-
-    // Limpar carrinho
-    setCartItems([]);
-    setShowCheckout(false);
-    
-    // Simular redirect para WhatsApp ou página de confirmação
-    console.log('Pedido completado:', order);
-  };
-
-  if (showCheckout) {
-    return (
-      <div className="App">
-        <Header cartItems={cartItems} onCartClick={() => setIsCartOpen(true)} />
-        <CheckoutForm 
-          cartItems={cartItems}
-          onOrderComplete={completeOrder}
-          onBack={backFromCheckout}
-        />
-        <Footer />
-        <Toaster />
-      </div>
-    );
-  }
 
   return (
     <div className="App">
@@ -155,7 +108,6 @@ function App() {
         cartItems={cartItems}
         onUpdateQuantity={updateCartQuantity}
         onRemoveItem={removeFromCart}
-        onCheckout={goToCheckout}
       />
 
       <Toaster />

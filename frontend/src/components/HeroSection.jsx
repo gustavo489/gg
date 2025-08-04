@@ -78,7 +78,7 @@ const HeroSection = ({ stock, onScrollToProducts }) => {
           <div className="relative">
             <div className="relative bg-white p-8 rounded-2xl shadow-xl">
               <img 
-                src="https://images.pexels.com/photos/11700775/pexels-photo-11700775.jpeg" 
+                src="https://customer-assets.emergentagent.com/job_cimento-ofertas/artifacts/anykxehy_cimento.2.jpg" 
                 alt="Cimento Itau" 
                 className="w-full h-80 object-cover rounded-lg"
               />

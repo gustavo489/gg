@@ -1,5 +1,5 @@
 import React from 'react';
-import { X, Plus, Minus, ShoppingBag } from 'lucide-react';
+import { X, Plus, Minus, ShoppingBag, MessageCircle } from 'lucide-react';
 import { Button } from './ui/button';
 import { Badge } from './ui/badge';
 import {
@@ -9,10 +9,40 @@ import {
   SheetHeader,
   SheetTitle,
 } from './ui/sheet';
+import { WHATSAPP_NUMBER } from '../data/mock';
 
-const Cart = ({ isOpen, onClose, cartItems, onUpdateQuantity, onRemoveItem, onCheckout }) => {
+const Cart = ({ isOpen, onClose, cartItems, onUpdateQuantity, onRemoveItem }) => {
   const totalPrice = cartItems.reduce((sum, item) => sum + (item.price * item.quantity), 0);
   const totalItems = cartItems.reduce((sum, item) => sum + item.quantity, 0);
+
+  const handleWhatsAppCheckout = () => {
+    if (cartItems.length === 0) return;
+
+    // Criar mensagem do pedido
+    let message = `🛒 *PEDIDO DE CIMENTO ITAU*\n\n`;
+    message += `📦 *Itens do pedido:*\n`;
+    
+    cartItems.forEach((item, index) => {
+      message += `${index + 1}. ${item.name}\n`;
+      message += `   • Quantidade: ${item.quantity} unidade(s)\n`;
+      message += `   • Preço unitário: R$ ${item.price.toFixed(2)}\n`;
+      message += `   • Subtotal: R$ ${(item.price * item.quantity).toFixed(2)}\n\n`;
+    });
+
+    message += `💰 *Total do pedido: R$ ${totalPrice.toFixed(2)}*\n`;
+    message += `🚚 *Frete: GRÁTIS*\n\n`;
+    message += `Gostaria de finalizar este pedido! 😊`;
+
+    // Codificar mensagem para URL
+    const encodedMessage = encodeURIComponent(message);
+    
+    // Abrir WhatsApp
+    const whatsappUrl = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodedMessage}`;
+    window.open(whatsappUrl, '_blank');
+    
+    // Fechar carrinho
+    onClose();
+  };
 
   return (
     <Sheet open={isOpen} onOpenChange={onClose}>
@@ -87,7 +117,7 @@ const Cart = ({ isOpen, onClose, cartItems, onUpdateQuantity, onRemoveItem, onCh
                           R$ {(item.price * item.quantity).toFixed(2)}
                         </div>
                         <div className="text-sm text-gray-500">
-                          R$ {item.price} cada
+                          R$ {item.price.toFixed(2)} cada
                         </div>
                       </div>
                     </div>
@@ -117,11 +147,16 @@ const Cart = ({ isOpen, onClose, cartItems, onUpdateQuantity, onRemoveItem, onCh
                 </Badge>
 
                 <Button 
-                  onClick={onCheckout}
-                  className="w-full bg-slate-900 hover:bg-slate-800 text-white py-3 text-lg font-semibold rounded-xl"
+                  onClick={handleWhatsAppCheckout}
+                  className="w-full bg-green-600 hover:bg-green-700 text-white py-3 text-lg font-semibold rounded-xl transition-all duration-200 hover:shadow-lg"
                 >
-                  Finalizar Pedido
+                  <MessageCircle className="w-5 h-5 mr-2" />
+                  Comprar via WhatsApp
                 </Button>
+
+                <p className="text-xs text-gray-500 text-center">
+                  Clique para finalizar seu pedido via WhatsApp
+                </p>
               </div>
             </>
           )}

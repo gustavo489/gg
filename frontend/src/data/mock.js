@@ -11,7 +11,7 @@ export const mockProducts = [
     weight: "50kg por saco",
     freeShipping: true,
     discount: 20,
-    image: "https://images.unsplash.com/photo-1523293915678-d126868e96f1?crop=entropy&cs=srgb&fm=jpg&ixid=M3w3NDk1ODF8MHwxfHNlYXJjaHwxfHxjZW1lbnQlMjBiYWdzfGVufDB8fHx8MTc1NDI3MDEwMXww&ixlib=rb-4.1.0&q=85",
+    image: "https://customer-assets.emergentagent.com/job_cimento-ofertas/artifacts/5i1lhj0r_cimento.jpg",
     specifications: [
       "Cimento Portland CP II-E-32",
       "Conformidade NBR 11578",
@@ -32,7 +32,7 @@ export const mockProducts = [
     freeShipping: true,
     discount: 25,
     popular: true,
-    image: "https://images.pexels.com/photos/6474201/pexels-photo-6474201.jpeg",
+    image: "https://customer-assets.emergentagent.com/job_cimento-ofertas/artifacts/anykxehy_cimento.2.jpg",
     specifications: [
       "Cimento Portland CP II-E-32",
       "Conformidade NBR 11578",
@@ -81,3 +81,5 @@ export const mockPaymentMethods = [
   { id: 'card', name: 'Cartão de Crédito', discount: 0, icon: 'credit-card' },
   { id: 'boleto', name: 'Boleto Bancário', discount: 0, icon: 'file-text' }
 ];
+
+export const WHATSAPP_NUMBER = "5565982069955"; // Número formatado para WhatsApp API
