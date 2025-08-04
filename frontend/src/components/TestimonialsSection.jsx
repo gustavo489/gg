@@ -1,5 +1,5 @@
 import React from 'react';
-import { Star, MapPin } from 'lucide-react';
+import { Star } from 'lucide-react';
 import { Card, CardContent } from './ui/card';
 
 const TestimonialsSection = ({ testimonials }) => {
@@ -39,10 +39,6 @@ const TestimonialsSection = ({ testimonials }) => {
                 <div className="flex items-center justify-between">
                   <div>
                     <div className="font-semibold text-gray-900">{testimonial.name}</div>
-                    <div className="flex items-center text-sm text-gray-500">
-                      <MapPin className="w-3 h-3 mr-1" />
-                      {testimonial.location}
-                    </div>
                   </div>
                   <div className="text-xs text-gray-400">
                     {new Date(testimonial.date).toLocaleDateString('pt-BR')}

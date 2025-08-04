@@ -4,7 +4,7 @@ import { Button } from './ui/button';
 import { Badge } from './ui/badge';
 
 const HeroSection = ({ stock, onScrollToProducts }) => {
-  const percentageSold = ((stock.totalAvailable - stock.remaining) / stock.totalAvailable) * 100;
+  const percentageSold = (stock.sold / stock.totalAvailable) * 100;
 
   return (
     <section className="relative bg-gradient-to-b from-gray-50 to-white py-16 lg:py-24">
@@ -56,9 +56,12 @@ const HeroSection = ({ stock, onScrollToProducts }) => {
                   style={{ width: `${percentageSold}%` }}
                 ></div>
               </div>
-              <div className="flex items-center space-x-2 text-red-600">
-                <Timer className="w-4 h-4" />
-                <span className="text-sm font-medium">Restam poucas unidades!</span>
+              <div className="flex items-center justify-between text-sm">
+                <div className="flex items-center space-x-2 text-red-600">
+                  <Timer className="w-4 h-4" />
+                  <span className="font-medium">Restam {stock.remaining} sacos!</span>
+                </div>
+                <span className="text-gray-500">Já vendidos: {stock.sold}</span>
               </div>
             </div>
 
@@ -75,7 +78,7 @@ const HeroSection = ({ stock, onScrollToProducts }) => {
           <div className="relative">
             <div className="relative bg-white p-8 rounded-2xl shadow-xl">
               <img 
-                src="https://images.unsplash.com/photo-1581833971358-2c8b550f87b3?w=600&h=500&fit=crop" 
+                src="https://images.pexels.com/photos/11700775/pexels-photo-11700775.jpeg" 
                 alt="Cimento Itau" 
                 className="w-full h-80 object-cover rounded-lg"
               />

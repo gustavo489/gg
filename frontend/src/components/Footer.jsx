@@ -1,5 +1,5 @@
 import React from 'react';
-import { Phone, Mail, MapPin, Clock, Shield, Truck } from 'lucide-react';
+import { Mail, MapPin, Clock, Shield, Truck } from 'lucide-react';
 
 const Footer = () => {
   return (
@@ -27,10 +27,6 @@ const Footer = () => {
           <div>
             <h4 className="text-lg font-semibold mb-4">Contato</h4>
             <div className="space-y-3">
-              <div className="flex items-center space-x-3">
-                <Phone className="w-4 h-4 text-gray-400" />
-                <span className="text-sm">(11) 9999-9999</span>
-              </div>
               <div className="flex items-center space-x-3">
                 <Mail className="w-4 h-4 text-gray-400" />
                 <span className="text-sm">vendas@cimentoitau.com</span>

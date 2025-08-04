@@ -11,7 +11,7 @@ export const mockProducts = [
     weight: "50kg por saco",
     freeShipping: true,
     discount: 20,
-    image: "https://images.unsplash.com/photo-1581833971358-2c8b550f87b3?w=500&h=400&fit=crop",
+    image: "https://images.unsplash.com/photo-1523293915678-d126868e96f1?crop=entropy&cs=srgb&fm=jpg&ixid=M3w3NDk1ODF8MHwxfHNlYXJjaHwxfHxjZW1lbnQlMjBiYWdzfGVufDB8fHx8MTc1NDI3MDEwMXww&ixlib=rb-4.1.0&q=85",
     specifications: [
       "Cimento Portland CP II-E-32",
       "Conformidade NBR 11578",
@@ -32,7 +32,7 @@ export const mockProducts = [
     freeShipping: true,
     discount: 25,
     popular: true,
-    image: "https://images.unsplash.com/photo-1504307651254-35680f356dfd?w=500&h=400&fit=crop",
+    image: "https://images.pexels.com/photos/6474201/pexels-photo-6474201.jpeg",
     specifications: [
       "Cimento Portland CP II-E-32",
       "Conformidade NBR 11578",
@@ -46,15 +46,14 @@ export const mockProducts = [
 
 export const mockStock = {
   totalAvailable: 200,
-  sold: 0,
-  remaining: 200
+  sold: 43,
+  remaining: 157
 };
 
 export const mockTestimonials = [
   {
     id: 1,
     name: "João Silva",
-    location: "São Paulo, SP",
     rating: 5,
     comment: "Cimento de excelente qualidade! Chegou rapidinho e o preço estava imbatível. Já usei em várias obras.",
     date: "2025-01-10"
@@ -62,7 +61,6 @@ export const mockTestimonials = [
   {
     id: 2, 
     name: "Maria Santos",
-    location: "Rio de Janeiro, RJ",
     rating: 5,
     comment: "Muito satisfeita com a compra. O frete grátis fez toda diferença no orçamento da obra.",
     date: "2025-01-08"
@@ -70,7 +68,6 @@ export const mockTestimonials = [
   {
     id: 3,
     name: "Carlos Oliveira", 
-    location: "Belo Horizonte, MG",
     rating: 5,
     comment: "Produto original, entrega no prazo e preço excelente. Recomendo!",
     date: "2025-01-05"
