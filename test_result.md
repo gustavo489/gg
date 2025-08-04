@@ -213,13 +213,10 @@ metadata:
 
 test_plan:
   current_focus:
-    - "MongoDB Product Model Implementation"
-    - "FastAPI CRUD Endpoints for Products"
-    - "FastAPI Stock Management Endpoints"
-    - "FastAPI Testimonials Endpoints"
-    - "Database Initialization with Mock Data"
+    - "API Service Integration"
+    - "Frontend API Integration"
   stuck_tasks: []
-  test_all: true
+  test_all: false
   test_priority: "high_first"
 
 agent_communication:
