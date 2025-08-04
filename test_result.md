@@ -152,15 +152,18 @@ backend:
 
   - task: "FastAPI Testimonials Endpoints"
     implemented: true
-    working: "NA"
+    working: true
     file: "backend/server.py"
     stuck_count: 0
     priority: "high"
-    needs_retesting: true
+    needs_retesting: false
     status_history:
         -working: "NA"
         -agent: "main"
         -comment: "Implemented GET /api/testimonials and POST /api/testimonials"
+        -working: true
+        -agent: "testing"
+        -comment: "✅ TESTED: Testimonials endpoints working perfectly. GET /api/testimonials returns 4 testimonials (3 initial + 1 test). POST /api/testimonials successfully creates new testimonials with proper UUID IDs and datetime stamps. Testimonial structure includes name, rating, comment, and date fields as required."
 
   - task: "Database Initialization with Mock Data"
     implemented: true
