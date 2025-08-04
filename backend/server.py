@@ -108,6 +108,78 @@ async def get_status_checks():
     status_checks = await db.status_checks.find().to_list(1000)
     return [StatusCheck(**status_check) for status_check in status_checks]
 
+# Product endpoints
+@api_router.get("/products", response_model=List[Product])
+async def get_products():
+    products = await db.products.find().to_list(1000)
+    return [Product(**product) for product in products]
+
+@api_router.post("/products", response_model=Product)
+async def create_product(product: ProductCreate):
+    product_dict = product.dict()
+    product_obj = Product(**product_dict)
+    await db.products.insert_one(product_obj.dict())
+    return product_obj
+
+@api_router.get("/products/{product_id}", response_model=Product)
+async def get_product(product_id: str):
+    product = await db.products.find_one({"id": product_id})
+    if not product:
+        raise HTTPException(status_code=404, detail="Product not found")
+    return Product(**product)
+
+@api_router.put("/products/{product_id}", response_model=Product)
+async def update_product(product_id: str, product: ProductCreate):
+    existing_product = await db.products.find_one({"id": product_id})
+    if not existing_product:
+        raise HTTPException(status_code=404, detail="Product not found")
+    
+    updated_product = Product(id=product_id, **product.dict())
+    await db.products.replace_one({"id": product_id}, updated_product.dict())
+    return updated_product
+
+@api_router.delete("/products/{product_id}")
+async def delete_product(product_id: str):
+    result = await db.products.delete_one({"id": product_id})
+    if result.deleted_count == 0:
+        raise HTTPException(status_code=404, detail="Product not found")
+    return {"message": "Product deleted successfully"}
+
+# Stock endpoints
+@api_router.get("/stock", response_model=Stock)
+async def get_stock():
+    stock = await db.stock.find_one()
+    if not stock:
+        # Initialize with default values if no stock exists
+        default_stock = Stock(totalAvailable=200, sold=43, remaining=157)
+        await db.stock.insert_one(default_stock.dict())
+        return default_stock
+    return Stock(**stock)
+
+@api_router.put("/stock", response_model=Stock)
+async def update_stock(stock_update: StockUpdate):
+    existing_stock = await db.stock.find_one()
+    if existing_stock:
+        updated_stock = Stock(id=existing_stock["id"], **stock_update.dict())
+        await db.stock.replace_one({"id": existing_stock["id"]}, updated_stock.dict())
+    else:
+        updated_stock = Stock(**stock_update.dict())
+        await db.stock.insert_one(updated_stock.dict())
+    return updated_stock
+
+# Testimonial endpoints
+@api_router.get("/testimonials", response_model=List[Testimonial])
+async def get_testimonials():
+    testimonials = await db.testimonials.find().to_list(1000)
+    return [Testimonial(**testimonial) for testimonial in testimonials]
+
+@api_router.post("/testimonials", response_model=Testimonial)
+async def create_testimonial(testimonial: TestimonialCreate):
+    testimonial_dict = testimonial.dict()
+    testimonial_obj = Testimonial(**testimonial_dict)
+    await db.testimonials.insert_one(testimonial_obj.dict())
+    return testimonial_obj
+
 # Include the router in the main app
 app.include_router(api_router)
 
