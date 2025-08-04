@@ -5,19 +5,20 @@ import { Badge } from './ui/badge';
 import { Card, CardContent, CardFooter, CardHeader } from './ui/card';
 import { WHATSAPP_NUMBER } from '../data/mock';
 
-const ProductCard = ({ product, onAddToCart }) => {
+const ProductCard = ({ product }) => {
   const savings = product.originalPrice - product.price;
   const discountPercentage = Math.round((savings / product.originalPrice) * 100);
 
   const handleWhatsAppOrder = () => {
     // Criar mensagem do produto
-    let message = `🛒 *INTERESSE EM CIMENTO ITAU*\n\n`;
+    let message = `🛒 *PEDIDO CIMENTO ITAU*\n\n`;
     message += `📦 *Produto:* ${product.name}\n`;
     message += `💰 *Preço:* R$ ${product.price.toFixed(2)}\n`;
-    message += `🔥 *Desconto:* ${discountPercentage}% OFF\n`;
+    message += `🔥 *Desconto:* ${discountPercentage}% OFF (Economia de R$ ${savings.toFixed(2)})\n`;
     message += `📦 *Quantidade:* ${product.quantity} ${product.unit}\n`;
+    message += `⚖️ *Peso:* ${product.weight}\n`;
     message += `🚚 *Frete:* GRÁTIS\n\n`;
-    message += `Tenho interesse neste produto! Pode me ajudar? 😊`;
+    message += `Gostaria de fazer este pedido! Pode me ajudar? 😊`;
 
     // Codificar mensagem para URL
     const encodedMessage = encodeURIComponent(message);
@@ -110,18 +111,10 @@ const ProductCard = ({ product, onAddToCart }) => {
         </div>
       </CardContent>
 
-      <CardFooter className="p-6 pt-0 space-y-2">
-        <Button 
-          onClick={() => onAddToCart(product)}
-          className="w-full bg-slate-900 hover:bg-slate-800 text-white py-3 text-lg font-semibold rounded-xl transition-all duration-200 hover:shadow-lg"
-        >
-          Adicionar ao Carrinho
-        </Button>
-        
+      <CardFooter className="p-6 pt-0">
         <Button 
           onClick={handleWhatsAppOrder}
-          variant="outline"
-          className="w-full border-green-600 text-green-600 hover:bg-green-50 py-3 text-lg font-semibold rounded-xl transition-all duration-200"
+          className="w-full bg-green-600 hover:bg-green-700 text-white py-4 text-lg font-semibold rounded-xl transition-all duration-200 hover:shadow-lg hover:scale-105"
         >
           <MessageCircle className="w-5 h-5 mr-2" />
           Comprar via WhatsApp
