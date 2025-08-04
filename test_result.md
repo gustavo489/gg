@@ -167,15 +167,18 @@ backend:
 
   - task: "Database Initialization with Mock Data"
     implemented: true
-    working: "NA"
+    working: true
     file: "backend/init_db.py"
     stuck_count: 0
     priority: "high"
-    needs_retesting: true
+    needs_retesting: false
     status_history:
         -working: "NA"
         -agent: "main"
         -comment: "Created init_db.py script and successfully populated MongoDB with products, stock, and testimonials data"
+        -working: true
+        -agent: "testing"
+        -comment: "✅ TESTED: Database initialization successful. MongoDB contains 2 products (Cimento Itau packages), 1 stock record (300 total, 50 sold, 250 remaining), and 3 initial testimonials. All data properly structured with correct field names and data types. Database connectivity and data persistence verified through comprehensive testing."
 
 frontend:
   - task: "API Service Integration"
